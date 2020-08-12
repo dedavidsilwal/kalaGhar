@@ -1,0 +1,51 @@
+﻿@page "/crafts/search/{keyword?}"
+
+@model KalaGhar.Pages.Crafts.SearchModel
+@{
+}
+
+<!-- Latest Products Start -->
+<section class="latest-product-area">
+    <div class="container">
+        <div class="row product-btn d-flex justify-content-between">
+            <div class="properties__button">
+
+            </div>
+            <div class="select-this d-flex">
+                <div class="featured">
+                    <span>Short by: </span>
+                </div>
+                <form action="#">
+                    <div class="select-itms">
+                   
+                        <select name="select" id="select1"
+                                onchange="filterChanged(this);"
+                                class="form-control"
+                                asp-items="Html.GetEnumSelectList<KalaGhar.Models.SortBy>()">
+                            <option>Select sort ...</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var craft in Model.Crafts)
+            {
+                <partial name="_CartPartial" model="@craft"/>   
+
+            }
+        </div>
+
+    </div>
+</section>
+<!-- Latest Products End -->
+
+<script>
+    filterChanged = (selectedValue) => {
+        //fetch('search/?handler=FilterChanged&sortBy=' + selectedValue.value).then({
+
+
+        //});
+        window.location = "search/?handler=FilterChanged&sortBy=" + selectedValue.value;
+    }
+</script>

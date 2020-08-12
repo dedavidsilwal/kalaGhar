@@ -1,0 +1,105 @@
+﻿@page "/crafts/new-craft"
+@model KalaGhar.Pages.Crafts.NewCraftModel
+@{
+}
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <label asp-for="Craft.Category" class="col-sm-3 col-form-label"></label>
+                <label class="col-sm-1 col-form-label" >*</label>
+                <select asp-for="Craft.CategoryId" class="form-control col-sm-8">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+
+                    }
+                </select>
+                @*<select  asp-items="@Model.Categories"/>*@
+                <span asp-validation-for="Craft.CategoryId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Craft.Name" class="control-label"></label>
+                <label class="control-label">*</label>
+                <input asp-for="Craft.Name" class="form-control" />
+                <span asp-validation-for="Craft.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Craft.Description" class="control-label"></label>
+                <label class="control-label">*</label>
+
+                <textarea asp-for="Craft.Description" class="form-control">
+
+            </textarea>
+                <span asp-validation-for="Craft.Description" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Craft.Price" class="control-label"></label>
+                <input type="number" asp-for="Craft.Price" class="form-control" />
+                <span asp-validation-for="Craft.Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Craft.CallForPrice" class="col-sm-4 col-form-label"></label>
+                <input asp-for="Craft.CallForPrice" class="form-control col-sm-8" />
+                <span asp-validation-for="Craft.CallForPrice" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Craft.Quantity" class="control-label"></label>
+                <label class="control-label">*</label>
+
+                <input type="number" asp-for="Craft.Quantity" class="form-control" />
+                <span asp-validation-for="Craft.Quantity" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group row">
+                <label asp-for="Craft.Published" class="col-sm-4 col-form-label"></label>
+                <input asp-for="Craft.Published" class="form-control col-sm-8" />
+                <span asp-validation-for="Craft.Published" class="text-danger"></span>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Craft.ValidityDay" class="col-sm-4 col-form-label"></label>
+                <select asp-for="Craft.ValidityDay"
+                        class="form-control col-sm-8"
+                        asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftValidityDay>()">
+                    <option>Select validity ...</option>
+                </select>
+
+                <span asp-validation-for="Craft.ValidityDay" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="UploadedImage" class="control-label"></label>
+
+                @for (int i = 0; i < 4; i++)
+                {
+                <input type="file" asp-for="UploadedImage" multiple class="form-control" /><br />
+
+                    //deleteimage
+                }
+
+                <span asp-validation-for="UploadedImage" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <a class="btn btn-warning" asp-page="./MyCraft">Cancel</a>
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

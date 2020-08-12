@@ -1,0 +1,37 @@
+﻿@model KalaGhar.Models.Craft
+
+
+<div class="col-xl-4 col-lg-4 col-md-6">
+    <div class="single-product mb-60">
+        <div class="product-img">
+            @if (Model.Images.Count != 0)
+            {
+                <img src="~/Images/@Model.Images.FirstOrDefault().Name" alt="@Model.Images.FirstOrDefault().Name">
+
+            }else{
+            <p>No Image</p>
+            }
+        </div>
+        <div class="product-caption">
+            <div class="product-ratting">
+                @*<i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star low-star"></i>
+        <i class="far fa-star low-star"></i>*@
+
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <i class="far fa-star low-star"></i>
+                }
+
+            </div>
+            <h4><a asp-area="" asp-page="/Crafts/Detail" asp-route-id="@Model.Id">@Model.Name</a></h4>
+            <div class="price">
+                <ul>
+                    <li>Rs. @Model.Price</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
