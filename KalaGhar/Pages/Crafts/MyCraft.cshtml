@@ -4,7 +4,10 @@
 }
 
 
-<a class="btn_1" style="float:right" asp-page="./NewCraft">Add Craft</a>
+<a class="btn btn-default" style="float:right" asp-page="./NewCraft">
+    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+
+</a>
 
 
 <!--================Cart Area =================-->
@@ -60,8 +63,13 @@
 
                             <td>
                             <td>
-                                <a class="btn_1" asp-page="./Edit" asp-route-id="@craft.Id">Edit</a>
-                                <a class="btn_2" asp-page="./Detail" asp-route-id="@craft.Id">Detail</a>
+                                <a class="btn btn-default" asp-page="./Edit" asp-route-id="@craft.Id">
+                                    <i class="fa fa-pencil text-white"></i>
+                                </a>
+
+                                <a class="btn btn-default" asp-page="./Detail" asp-route-id="@craft.Id">
+                                    <i class="fa fa-info-circle text-white"></i>
+                                </a>
 
                                 <form method="post" asp-page-handler="Delete" asp-route-id="@craft.Id"
                                       onclick="return confirm('Are you sure you want to delete this?')">

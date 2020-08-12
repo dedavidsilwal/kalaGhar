@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace KalaGhar.Migrations
 {
-    public partial class ini : Migration
+    public partial class initialSchema : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -178,10 +178,10 @@ namespace KalaGhar.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: false),
                     PublishDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    CategoryId = table.Column<string>(type: "text", nullable: true),
+                    CategoryId = table.Column<string>(type: "text", nullable: false),
                     Quantity = table.Column<short>(type: "smallint", nullable: false),
                     Published = table.Column<bool>(type: "boolean", nullable: false),
                     ValidityDay = table.Column<int>(type: "integer", nullable: false),
@@ -303,11 +303,11 @@ namespace KalaGhar.Migrations
                 columns: new[] { "Id", "Description", "Enabled", "Name" },
                 values: new object[,]
                 {
-                    { "ec7c26f7-b8c0-477c-b995-b2fdd63d6612", null, true, "Paintings" },
-                    { "0a7d347f-8723-4252-97d5-1fffe78fb30f", null, true, "Stone crafts" },
-                    { "dc105065-0813-4e85-9951-da579a11529f", null, true, "Ceramics" },
-                    { "cfa370b0-8d59-4783-94b7-ea2f39ee7590", null, true, "Wooden crafts" },
-                    { "5a319a1f-0297-4d71-a4af-cd602c046f5a", null, true, "Browse others" }
+                    { "6c33f2fd-9e69-4791-97f8-1a1439e9f47f", null, true, "Paintings" },
+                    { "62e2ebaa-0cb9-4fc4-9e70-aa90b9ba91b2", null, true, "Stone crafts" },
+                    { "f33b6dc4-b142-4a9e-a2b6-65f3b3a4aa10", null, true, "Ceramics" },
+                    { "5798b189-ba6e-4843-9d80-dc9873faed97", null, true, "Wooden crafts" },
+                    { "a6d34eaf-dbc7-452c-bef2-242943e59c9b", null, true, "Browse others" }
                 });
 
             migrationBuilder.CreateIndex(

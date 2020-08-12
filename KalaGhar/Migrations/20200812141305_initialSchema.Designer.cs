@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KalaGhar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200811124911_ini")]
-    partial class ini
+    [Migration("20200812141305_initialSchema")]
+    partial class initialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,31 +43,31 @@ namespace KalaGhar.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ec7c26f7-b8c0-477c-b995-b2fdd63d6612",
+                            Id = "6c33f2fd-9e69-4791-97f8-1a1439e9f47f",
                             Enabled = true,
                             Name = "Paintings"
                         },
                         new
                         {
-                            Id = "0a7d347f-8723-4252-97d5-1fffe78fb30f",
+                            Id = "62e2ebaa-0cb9-4fc4-9e70-aa90b9ba91b2",
                             Enabled = true,
                             Name = "Stone crafts"
                         },
                         new
                         {
-                            Id = "dc105065-0813-4e85-9951-da579a11529f",
+                            Id = "f33b6dc4-b142-4a9e-a2b6-65f3b3a4aa10",
                             Enabled = true,
                             Name = "Ceramics"
                         },
                         new
                         {
-                            Id = "cfa370b0-8d59-4783-94b7-ea2f39ee7590",
+                            Id = "5798b189-ba6e-4843-9d80-dc9873faed97",
                             Enabled = true,
                             Name = "Wooden crafts"
                         },
                         new
                         {
-                            Id = "5a319a1f-0297-4d71-a4af-cd602c046f5a",
+                            Id = "a6d34eaf-dbc7-452c-bef2-242943e59c9b",
                             Enabled = true,
                             Name = "Browse others"
                         });
@@ -82,12 +82,14 @@ namespace KalaGhar.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("CraftStatus")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -408,7 +410,8 @@ namespace KalaGhar.Migrations
                 {
                     b.HasOne("KalaGhar.Models.Category", "Category")
                         .WithMany("Crafts")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .IsRequired();
 
                     b.HasOne("KalaGhar.Models.ApplicationUser", "User")
                         .WithMany("Crafts")
