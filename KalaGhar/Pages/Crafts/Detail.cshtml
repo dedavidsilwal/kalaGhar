@@ -44,6 +44,39 @@
                         <div class="add_to_cart">
                             <a asp-page-handler="AddToWishList" asp-route-id="@Model.Craft.Id" class="btn_3">add to wishlist</a>
                         </div>
+
+                        <div>
+                            @foreach (var message in Model.Craft.Messages)
+                            {
+                                <p>@message.Text</p>
+                                <p>@message?.SenderUserId</p>
+                                <p>@message.CreatedDateTime</p>
+
+                                <section>
+                                    @foreach(var reply in message.Replies)
+                                    {
+                                        <p>@reply.ReplyText</p>
+                                        <p>@reply.CreatedDateTime</p>                                       
+                                    }
+                                </section>
+
+                                <p>Add Replies</p>
+                                <form method="post" asp-page-handler="ReplyMessageSubmit">
+                                    <input type="hidden" name="MessageId" value="@message.Id" />
+                                    <textarea name="ReplyText"></textarea>
+                                    <input type="submit" value="Submit" />
+                                </form>
+                            }
+
+                        </div>
+
+                        <p>Add Question</p>
+
+                        <form method="post" asp-page-handler="MessageSubmit">
+                            <input type="hidden" name="CraftId" value="@Model.CraftId"/>
+                            <textarea name="Text" ></textarea>
+                            <input type="submit" value="Submit"/>
+                        </form>
                     </div>
                 </div>
             </div>

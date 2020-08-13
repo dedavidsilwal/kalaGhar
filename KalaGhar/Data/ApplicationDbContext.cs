@@ -35,7 +35,12 @@ namespace KalaGhar.Data
             });
 
             builder.Entity<Wish>().HasKey(e => new { e.CraftId, e.UserId });
-            builder.Entity<Message>().HasKey(e => new { e.CraftId, e.UserId });
+            //builder.Entity<Message>().HasKey(e => new { e.CraftId, e.CraftOwnerUserId });
+
+            builder.Entity<Message>().OwnsMany(p => p.Replies, i => {
+                i.HasKey(x => x.Id);
+                i.WithOwner().HasForeignKey(x => x.MessageId);
+            });
 
             builder.Entity<Craft>()
                  .HasOne(p => p.User)

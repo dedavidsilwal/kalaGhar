@@ -10,14 +10,14 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KalaGhar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200812141305_initialSchema")]
-    partial class initialSchema
+    [Migration("20200813115040_senderUserId")]
+    partial class senderUserId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.0-preview.7.20365.15");
 
@@ -43,31 +43,31 @@ namespace KalaGhar.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6c33f2fd-9e69-4791-97f8-1a1439e9f47f",
+                            Id = "df748029-f482-4938-97c0-308b5ae4bfa4",
                             Enabled = true,
                             Name = "Paintings"
                         },
                         new
                         {
-                            Id = "62e2ebaa-0cb9-4fc4-9e70-aa90b9ba91b2",
+                            Id = "d844e8c9-c173-42a5-b4ef-e251a91527bc",
                             Enabled = true,
                             Name = "Stone crafts"
                         },
                         new
                         {
-                            Id = "f33b6dc4-b142-4a9e-a2b6-65f3b3a4aa10",
+                            Id = "448d6d53-a262-461a-89af-19035f65a11c",
                             Enabled = true,
                             Name = "Ceramics"
                         },
                         new
                         {
-                            Id = "5798b189-ba6e-4843-9d80-dc9873faed97",
+                            Id = "dada550e-7d13-4686-93dc-f7014e4ff27a",
                             Enabled = true,
                             Name = "Wooden crafts"
                         },
                         new
                         {
-                            Id = "a6d34eaf-dbc7-452c-bef2-242943e59c9b",
+                            Id = "8ee624a1-a204-4292-9d9d-bcfe88904c70",
                             Enabled = true,
                             Name = "Browse others"
                         });
@@ -152,16 +152,22 @@ namespace KalaGhar.Migrations
                     b.Property<string>("CraftId")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("CraftOwnerUserId")
                         .HasColumnType("text");
 
                     b.Property<string>("ReceivedDate")
                         .HasColumnType("text");
 
+                    b.Property<string>("SenderUserId")
+                        .HasColumnType("text");
+
                     b.Property<string>("Text")
                         .HasColumnType("text");
 
-                    b.HasKey("CraftId", "UserId");
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("CraftId", "CraftOwnerUserId");
 
                     b.HasIndex("UserId");
 
@@ -214,7 +220,7 @@ namespace KalaGhar.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .UseSerialColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -308,7 +314,7 @@ namespace KalaGhar.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .UseSerialColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("text");
@@ -462,9 +468,7 @@ namespace KalaGhar.Migrations
 
                     b.HasOne("KalaGhar.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("KalaGhar.Models.Wish", b =>

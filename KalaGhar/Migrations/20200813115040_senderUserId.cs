@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace KalaGhar.Migrations
 {
-    public partial class initialSchema : Migration
+    public partial class senderUserId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -71,7 +71,7 @@ namespace KalaGhar.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     RoleId = table.Column<string>(type: "text", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
@@ -92,7 +92,7 @@ namespace KalaGhar.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     ClaimType = table.Column<string>(type: "text", nullable: true),
                     ClaimValue = table.Column<string>(type: "text", nullable: true)
@@ -232,20 +232,22 @@ namespace KalaGhar.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CraftOwnerUserId = table.Column<string>(type: "text", nullable: false),
                     CraftId = table.Column<string>(type: "text", nullable: false),
                     Text = table.Column<string>(type: "text", nullable: true),
-                    ReceivedDate = table.Column<string>(type: "text", nullable: true)
+                    ReceivedDate = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: true),
+                    SenderUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => new { x.CraftId, x.UserId });
+                    table.PrimaryKey("PK_Messages", x => new { x.CraftId, x.CraftOwnerUserId });
                     table.ForeignKey(
                         name: "FK_Messages_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Messages_Crafts_CraftId",
                         column: x => x.CraftId,
@@ -303,11 +305,11 @@ namespace KalaGhar.Migrations
                 columns: new[] { "Id", "Description", "Enabled", "Name" },
                 values: new object[,]
                 {
-                    { "6c33f2fd-9e69-4791-97f8-1a1439e9f47f", null, true, "Paintings" },
-                    { "62e2ebaa-0cb9-4fc4-9e70-aa90b9ba91b2", null, true, "Stone crafts" },
-                    { "f33b6dc4-b142-4a9e-a2b6-65f3b3a4aa10", null, true, "Ceramics" },
-                    { "5798b189-ba6e-4843-9d80-dc9873faed97", null, true, "Wooden crafts" },
-                    { "a6d34eaf-dbc7-452c-bef2-242943e59c9b", null, true, "Browse others" }
+                    { "df748029-f482-4938-97c0-308b5ae4bfa4", null, true, "Paintings" },
+                    { "d844e8c9-c173-42a5-b4ef-e251a91527bc", null, true, "Stone crafts" },
+                    { "448d6d53-a262-461a-89af-19035f65a11c", null, true, "Ceramics" },
+                    { "dada550e-7d13-4686-93dc-f7014e4ff27a", null, true, "Wooden crafts" },
+                    { "8ee624a1-a204-4292-9d9d-bcfe88904c70", null, true, "Browse others" }
                 });
 
             migrationBuilder.CreateIndex(
