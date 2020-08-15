@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KalaGhar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200813120157_replies")]
-    partial class replies
+    [Migration("20200814091642_Negotiable")]
+    partial class Negotiable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,31 +43,31 @@ namespace KalaGhar.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61731259-c1cf-4742-a856-80376121343b",
+                            Id = "18a01994-40c3-498d-ac6d-1025d461ba80",
                             Enabled = true,
                             Name = "Paintings"
                         },
                         new
                         {
-                            Id = "25959965-839f-464c-92c3-d6b698544015",
+                            Id = "668e5631-0a15-44d6-a8fe-7878558b0a2b",
                             Enabled = true,
                             Name = "Stone crafts"
                         },
                         new
                         {
-                            Id = "032c97a0-7c87-447e-829c-ed4ecd9d5d85",
+                            Id = "55a54a65-be4e-4f88-bd64-9cd68a60fa7f",
                             Enabled = true,
                             Name = "Ceramics"
                         },
                         new
                         {
-                            Id = "a6ca8e89-606c-477a-a6c2-7a917390a822",
+                            Id = "2b158281-81a0-49c5-9f01-c3409dfb4098",
                             Enabled = true,
                             Name = "Wooden crafts"
                         },
                         new
                         {
-                            Id = "6cef4cc6-341b-4cfa-88ba-4c6ee86d51f8",
+                            Id = "3db5956b-9cbc-4216-81d8-ba75be948a59",
                             Enabled = true,
                             Name = "Browse others"
                         });
@@ -77,9 +77,6 @@ namespace KalaGhar.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
-
-                    b.Property<bool>("CallForPrice")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("CategoryId")
                         .IsRequired()
@@ -95,6 +92,9 @@ namespace KalaGhar.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("Negotiable")
+                        .HasColumnType("boolean");
 
                     b.Property<float>("Price")
                         .HasColumnType("real");
@@ -114,7 +114,7 @@ namespace KalaGhar.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.Property<int>("ValidityDay")
+                    b.Property<int>("Validity")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

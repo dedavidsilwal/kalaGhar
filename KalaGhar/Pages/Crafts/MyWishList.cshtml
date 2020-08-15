@@ -1,74 +1,88 @@
 ﻿@page "/crafts/my-wisthlist"
 @model KalaGhar.Pages.Crafts.MyWishListModel
 @{
+    ViewBag.Title = "My Wishlist";
 }
 
 <!--================Cart Area =================-->
 <section class="cart_area">
     <div class="container">
         <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Craft</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Published</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @foreach (var craft in Model.Wishes)
+                    {
                         <tr>
-                            <th scope="col">Craft</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Published</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-
-                        @foreach (var craft in Model.Wishes)
-                        {                                              
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            @if (craft.Craft.Images.Count != 0)
-                                            {
-                                                <img src="~/Images/@craft.Craft.Images.FirstOrDefault().Name" alt="" />
-                                            }
-                                            else
-                                            {
-                                                <p>No Image</p>
-                                            }
-                                        </div>
-                                        <div class="media-body">
-                                            <p>@craft.Craft.Name</p>
-                                        </div>
+                            <td>
+                                <div class="media">
+                                    <div class="d-flex">
+                                        @if (craft.Craft.Images.Count != 0)
+                                        {
+                                            <img src="~/Images/@craft.Craft.Images.FirstOrDefault().Name" alt="" />
+                                        }
+                                        else
+                                        {
+                                            <p>No Image</p>
+                                        }
                                     </div>
-                                </td>
-                                <td>
-                                    <h5>@craft.Craft.Price</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <h5>@craft.Craft.Quantity</h5>
+                                    <div class="media-body">
+                                        <p>@craft.Craft.Name</p>
                                     </div>
-                                </td>
-                                <td>
-                                    <h5>@craft.Craft.Published</h5>
-                                </td>
-                                <td>
-                                    <a class="btn_2" asp-page="./Detail" asp-route-id="@craft.Craft.Id">Detail</a>
+                                </div>
+                            </td>
+                            <td>
+                                <p>@craft.Craft.Price</p>
+                            </td>
+                            <td>
+                                <div class="product_count">
+                                    <p>@craft.Craft.Quantity</p>
+                                </div>
+                            </td>
+                            <td>
+                                <p>@craft.Craft.Published</p>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <a class="btn btn-default" asp-page="./Detail" asp-route-id="@craft.Craft.Id">
+                                        <i class="fa fa-info-circle text-white justify-content-center"></i>
+                                    </a>
 
                                     <form method="post" asp-page-handler="Delete" asp-route-id="@craft.Craft.Id"
                                           onclick="return confirm('Are you sure you want to delete this?')">
                                         <button type="submit" class="btn btn-default"><i class="fas fa-trash-alt text-white"></i></button>
                                     </form>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
 
-                        }
+                    }
 
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </section>
 <!--================End Cart Area =================-->
+<style>
+    a.btn, button {
+        height: 30px;
+        margin-left: 2px;
+    }
+
+    .btn i {
+        line-height: 0 !important;
+    }
+</style>

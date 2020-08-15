@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KalaGhar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200813115040_senderUserId")]
-    partial class senderUserId
+    [Migration("20200814090909_addEntities")]
+    partial class addEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,31 +43,31 @@ namespace KalaGhar.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "df748029-f482-4938-97c0-308b5ae4bfa4",
+                            Id = "3d7afe04-ca9d-4d0d-871f-24ccd8d713fe",
                             Enabled = true,
                             Name = "Paintings"
                         },
                         new
                         {
-                            Id = "d844e8c9-c173-42a5-b4ef-e251a91527bc",
+                            Id = "89635d54-931d-489f-a81e-76ce4cc4ded4",
                             Enabled = true,
                             Name = "Stone crafts"
                         },
                         new
                         {
-                            Id = "448d6d53-a262-461a-89af-19035f65a11c",
+                            Id = "cacd8cdf-6257-432c-b627-bfbd8fe3d53f",
                             Enabled = true,
                             Name = "Ceramics"
                         },
                         new
                         {
-                            Id = "dada550e-7d13-4686-93dc-f7014e4ff27a",
+                            Id = "4ed1e95a-e311-4a24-ac20-23ac2f5bebee",
                             Enabled = true,
                             Name = "Wooden crafts"
                         },
                         new
                         {
-                            Id = "8ee624a1-a204-4292-9d9d-bcfe88904c70",
+                            Id = "2a8c6070-a6c0-4348-981b-6eb66a9451a4",
                             Enabled = true,
                             Name = "Browse others"
                         });
@@ -114,7 +114,7 @@ namespace KalaGhar.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.Property<int>("ValidityDay")
+                    b.Property<int>("Validity")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -149,14 +149,17 @@ namespace KalaGhar.Migrations
 
             modelBuilder.Entity("KalaGhar.Models.Message", b =>
                 {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
                     b.Property<string>("CraftId")
                         .HasColumnType("text");
 
                     b.Property<string>("CraftOwnerUserId")
                         .HasColumnType("text");
 
-                    b.Property<string>("ReceivedDate")
-                        .HasColumnType("text");
+                    b.Property<DateTime>("CreatedDateTime")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("SenderUserId")
                         .HasColumnType("text");
@@ -167,7 +170,9 @@ namespace KalaGhar.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.HasKey("CraftId", "CraftOwnerUserId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("CraftId");
 
                     b.HasIndex("UserId");
 
@@ -463,12 +468,36 @@ namespace KalaGhar.Migrations
                 {
                     b.HasOne("KalaGhar.Models.Craft", "Craft")
                         .WithMany("Messages")
-                        .HasForeignKey("CraftId")
-                        .IsRequired();
+                        .HasForeignKey("CraftId");
 
                     b.HasOne("KalaGhar.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.OwnsMany("KalaGhar.Models.Reply", "Replies", b1 =>
+                        {
+                            b1.Property<string>("Id")
+                                .HasColumnType("text");
+
+                            b1.Property<DateTime>("CreatedDateTime")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<string>("MessageId")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("ReplyText")
+                                .HasColumnType("text");
+
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("MessageId");
+
+                            b1.ToTable("Reply");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MessageId");
+                        });
                 });
 
             modelBuilder.Entity("KalaGhar.Models.Wish", b =>

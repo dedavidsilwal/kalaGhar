@@ -9,7 +9,7 @@
         <li><a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a></li>
         <li>
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" class="nav-link btn btn-sm btn-link text-dark" style="padding: 20px 20px">Logout</button>
             </form>
         </li>
 
@@ -21,3 +21,10 @@
         <li> <a asp-area="Identity" asp-page="/Account/Login">Login</a> </li>
     }
 </ul>
+
+
+<style>
+    .form-inline.submit{
+        ;
+    }
+</style>

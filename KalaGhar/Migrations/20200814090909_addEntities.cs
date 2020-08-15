@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace KalaGhar.Migrations
 {
-    public partial class senderUserId : Migration
+    public partial class addEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -184,7 +184,7 @@ namespace KalaGhar.Migrations
                     CategoryId = table.Column<string>(type: "text", nullable: false),
                     Quantity = table.Column<short>(type: "smallint", nullable: false),
                     Published = table.Column<bool>(type: "boolean", nullable: false),
-                    ValidityDay = table.Column<int>(type: "integer", nullable: false),
+                    Validity = table.Column<int>(type: "integer", nullable: false),
                     CraftStatus = table.Column<int>(type: "integer", nullable: false),
                     CallForPrice = table.Column<bool>(type: "boolean", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
@@ -232,16 +232,17 @@ namespace KalaGhar.Migrations
                 name: "Messages",
                 columns: table => new
                 {
-                    CraftOwnerUserId = table.Column<string>(type: "text", nullable: false),
-                    CraftId = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    CraftOwnerUserId = table.Column<string>(type: "text", nullable: true),
+                    CraftId = table.Column<string>(type: "text", nullable: true),
                     Text = table.Column<string>(type: "text", nullable: true),
-                    ReceivedDate = table.Column<string>(type: "text", nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
                     SenderUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Messages", x => new { x.CraftId, x.CraftOwnerUserId });
+                    table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Messages_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -300,16 +301,36 @@ namespace KalaGhar.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reply",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    MessageId = table.Column<string>(type: "text", nullable: false),
+                    ReplyText = table.Column<string>(type: "text", nullable: true),
+                    CreatedDateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reply", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reply_Messages_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Messages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Description", "Enabled", "Name" },
                 values: new object[,]
                 {
-                    { "df748029-f482-4938-97c0-308b5ae4bfa4", null, true, "Paintings" },
-                    { "d844e8c9-c173-42a5-b4ef-e251a91527bc", null, true, "Stone crafts" },
-                    { "448d6d53-a262-461a-89af-19035f65a11c", null, true, "Ceramics" },
-                    { "dada550e-7d13-4686-93dc-f7014e4ff27a", null, true, "Wooden crafts" },
-                    { "8ee624a1-a204-4292-9d9d-bcfe88904c70", null, true, "Browse others" }
+                    { "3d7afe04-ca9d-4d0d-871f-24ccd8d713fe", null, true, "Paintings" },
+                    { "89635d54-931d-489f-a81e-76ce4cc4ded4", null, true, "Stone crafts" },
+                    { "cacd8cdf-6257-432c-b627-bfbd8fe3d53f", null, true, "Ceramics" },
+                    { "4ed1e95a-e311-4a24-ac20-23ac2f5bebee", null, true, "Wooden crafts" },
+                    { "2a8c6070-a6c0-4348-981b-6eb66a9451a4", null, true, "Browse others" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -365,9 +386,19 @@ namespace KalaGhar.Migrations
                 column: "CraftId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_CraftId",
+                table: "Messages",
+                column: "CraftId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Messages_UserId",
                 table: "Messages",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reply_MessageId",
+                table: "Reply",
+                column: "MessageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Views_CraftId",
@@ -401,7 +432,7 @@ namespace KalaGhar.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "Messages");
+                name: "Reply");
 
             migrationBuilder.DropTable(
                 name: "Views");
@@ -411,6 +442,9 @@ namespace KalaGhar.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
 
             migrationBuilder.DropTable(
                 name: "Crafts");

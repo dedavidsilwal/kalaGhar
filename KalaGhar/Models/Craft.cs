@@ -17,11 +17,13 @@ namespace KalaGhar.Models
         public DateTime PublishDate { get; set; }
 
 
+        [Required(ErrorMessage = "price is required.")]
+
         public float Price { get; set; }
 
-        [Required]
-
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Category is required.")]
         public string CategoryId { get; set; }
+
 
         public Category Category { get; set; }
 
@@ -32,19 +34,21 @@ namespace KalaGhar.Models
 
         public bool Published { get; set; } = true;
 
-        
-        [Display(Name = "Validity Day")]
 
-        public CraftValidityDay ValidityDay { get; set; }
+        [Display(Name = "Validity Month")]
+
+        [Required(ErrorMessage = "validity is required.")]
+
+        public CraftValidityMonth Validity { get; set; }
 
 
         public CraftStatus CraftStatus { get; set; }
 
-        public DateTime ExpiredDate => PublishDate.AddDays((int)ValidityDay);
+        public DateTime ExpiredDate => PublishDate.AddMonths((int)Validity);
 
-        [Display(Name = "Call for pricing")]
+        [Display(Name = "Negotiable")]
 
-        public bool CallForPrice { get; set; }
+        public bool Negotiable { get; set; }
 
         public int Rating { get; set; }
 

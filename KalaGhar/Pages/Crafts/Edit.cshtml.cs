@@ -28,6 +28,9 @@ namespace KalaGhar.Pages.Crafts
 
         public Craft Craft { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
 
         public List<Category> Categories { get; set; }
 
@@ -64,6 +67,8 @@ namespace KalaGhar.Pages.Crafts
 
             _context.Update(Craft);
             await _context.SaveChangesAsync();
+
+            StatusMessage = "Craft updated successfully.";
 
             return RedirectToPage("./MyCraft");
 

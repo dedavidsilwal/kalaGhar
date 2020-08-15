@@ -1,6 +1,7 @@
 ﻿@page "/crafts/edit/{id}"
 @model KalaGhar.Pages.Crafts.EditModel
 @{
+    ViewBag.Title = "Edit craft";
 }
 
 <div class="row">
@@ -48,9 +49,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Craft.CallForPrice" class="control-label"></label>
-                <input asp-for="Craft.CallForPrice" class="form-control" />
-                <span asp-validation-for="Craft.CallForPrice" class="text-danger"></span>
+                <label asp-for="Craft.Negotiable" class="control-label"></label>
+                <input asp-for="Craft.Negotiable" class="form-control" />
+                <span asp-validation-for="Craft.Negotiable" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -67,14 +68,14 @@
             </div>
 
             <div class="form-group row">
-                <label asp-for="Craft.ValidityDay" class="col-sm-4 col-form-label"></label>
-                <select asp-for="Craft.ValidityDay"
+                <label asp-for="Craft.Validity" class="col-sm-4 col-form-label"></label>
+                <select asp-for="Craft.Validity"
                         class="form-control col-sm-8"
-                        asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftValidityDay>()">
+                        asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftValidityMonth>()">
                     <option>Select validity ...</option>
                 </select>
 
-                <span asp-validation-for="Craft.ValidityDay" class="text-danger"></span>
+                <span asp-validation-for="Craft.Validity" class="text-danger"></span>
             </div>
 
             <div class="form-group row">
@@ -82,7 +83,7 @@
                 <select asp-for="Craft.CraftStatus"
                         class="form-control col-sm-8"
                         asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftStatus>()">
-                    <option>Select Status ...</option>
+                    <option value="null">Select Status ...</option>
                 </select>
 
                 <span asp-validation-for="Craft.CraftStatus" class="text-danger"></span>

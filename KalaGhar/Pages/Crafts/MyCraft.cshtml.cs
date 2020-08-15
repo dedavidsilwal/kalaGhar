@@ -30,6 +30,9 @@ namespace KalaGhar.Pages.Crafts
         public IReadOnlyCollection<Craft> Crafts { get; set; }
 
 
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public async Task OnGetAsync()
         {
             var userId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

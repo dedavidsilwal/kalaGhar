@@ -1,6 +1,8 @@
 ﻿@page "/crafts/new-craft"
 @model KalaGhar.Pages.Crafts.NewCraftModel
 @{
+    ViewBag.Title = "New craft";
+
 }
 
 
@@ -49,9 +51,9 @@
             </div>
 
             <div class="form-group row">
-                <label asp-for="Craft.CallForPrice" class="col-sm-4 col-form-label"></label>
-                <input asp-for="Craft.CallForPrice" class="form-control col-sm-8" />
-                <span asp-validation-for="Craft.CallForPrice" class="text-danger"></span>
+                <label asp-for="Craft.Negotiable" class="col-sm-4 col-form-label"></label>
+                <input asp-for="Craft.Negotiable" class="form-control col-sm-8" />
+                <span asp-validation-for="Craft.Negotiable" class="text-danger"></span>
             </div>
 
 
@@ -71,14 +73,14 @@
             </div>
 
             <div class="form-group row">
-                <label asp-for="Craft.ValidityDay" class="col-sm-4 col-form-label"></label>
-                <select asp-for="Craft.ValidityDay"
+                <label asp-for="Craft.Validity" class="col-sm-4 col-form-label"></label>
+                <select asp-for="Craft.Validity"
                         class="form-control col-sm-8"
-                        asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftValidityDay>()">
-                    <option>Select validity ...</option>
+                        asp-items="Html.GetEnumSelectList<KalaGhar.Models.CraftValidityMonth>()">
+                    <option value="null">Select validity</option>
                 </select>
 
-                <span asp-validation-for="Craft.ValidityDay" class="text-danger"></span>
+                <span asp-validation-for="Craft.Validity" class="text-danger"></span>
             </div>
 
 
@@ -103,3 +105,9 @@
         </form>
     </div>
 </div>
+
+<style>
+    input[type=checkbox]{
+        height:30px;
+    }
+</style>

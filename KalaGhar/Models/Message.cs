@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KalaGhar.Models
 {
     public class Message : BaseEntity
     {
+
         public string CraftOwnerUserId { get; set; }
         public string CraftId { get; set; }
+
+        [Required]
+
         public string Text { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
@@ -23,7 +28,11 @@ namespace KalaGhar.Models
 
     public class Reply : BaseEntity
     {
+
+        [Required]
         public string MessageId { get; set; }
+
+        [Required]
         public string ReplyText { get; set; }
         public DateTime CreatedDateTime { get; set; }
 

@@ -2,9 +2,9 @@
 {
     public enum SortBy
     {
-        Relevance,
-        Price,
-        ViewCount,
-        RecentlyPublish
+        PriceAsc,
+        PriceDesc,
+        PublishedDateAsc,
+        PublishedDateDesc,
     }
 }

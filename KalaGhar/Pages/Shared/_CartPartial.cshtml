@@ -6,7 +6,7 @@
         <div class="product-img">
             @if (Model.Images.Count != 0)
             {
-                <img src="~/Images/@Model.Images.FirstOrDefault().Name" alt="@Model.Images.FirstOrDefault().Name">
+                <img src="~/Images/@Model.Images.FirstOrDefault().Name" height="250" width="250" alt="@Model.Images.FirstOrDefault().Name">
 
             }else{
             <p>No Image</p>
@@ -35,3 +35,10 @@
         </div>
     </div>
 </div>
+
+<style>
+    .product-img img{
+        height:220px;
+        width:250px !important;
+    }
+</style>

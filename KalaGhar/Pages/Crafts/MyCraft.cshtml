@@ -1,7 +1,10 @@
 ﻿@page "/crafts/my-crafts"
 @model KalaGhar.Pages.Crafts.MyCraftModel
 @{
+    ViewBag.Title = "My Crafts";
 }
+
+<partial name="_StatusMessage" model="Model.StatusMessage" />
 
 
 <a class="btn btn-default" style="float:right" asp-page="./NewCraft">
@@ -9,26 +12,25 @@
 
 </a>
 
-
 <!--================Cart Area =================-->
 <section class="cart_area" style="">
     <div class="container">
         <div class="cart_inner">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Craft</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Published</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Craft</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Published</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
 
 
-                        @foreach (var craft in Model.Crafts)
-                        {
+                    @foreach (var craft in Model.Crafts)
+                    {
                         <tr>
                             <td>
                                 <div class="media">
@@ -36,7 +38,7 @@
 
                                         @if (craft.Images.Count != 0)
                                         {
-                                            <img src="~/Images/@craft.Images.FirstOrDefault().Name" alt="" />
+                                            <img src="~/Images/@craft.Images.FirstOrDefault().Name" height="90" width="90" alt="@craft.Images.FirstOrDefault().Name" />
                                         }
                                         else
                                         {
@@ -50,42 +52,56 @@
                                 </div>
                             </td>
                             <td>
-                                <h5>@craft.Price</h5>
+                                <p>@craft.Price</p>
                             </td>
                             <td>
                                 <div class="product_count">
-                                    <h5>@craft.Quantity</h5>
+                                    <hp>@craft.Quantity</hp>
                                 </div>
                             </td>
                             <td>
-                                <h5>@craft.Published</h5>
+                                <p>@craft.Published</p>
                             </td>
 
                             <td>
-                            <td>
-                                <a class="btn btn-default" asp-page="./Edit" asp-route-id="@craft.Id">
-                                    <i class="fa fa-pencil text-white"></i>
-                                </a>
+                                <div class="row">
+                                    <a class="btn btn-default" asp-page="./Edit" asp-route-id="@craft.Id">
+                                        <i class="fa fa-pencil-alt text-white justify-content-center"></i>
+                                    </a>
 
-                                <a class="btn btn-default" asp-page="./Detail" asp-route-id="@craft.Id">
-                                    <i class="fa fa-info-circle text-white"></i>
-                                </a>
+                                    <a class="btn btn-default" asp-page="./Detail" asp-route-id="@craft.Id">
+                                        <i class="fa fa-info-circle text-white justify-content-center"></i>
+                                    </a>
 
-                                <form method="post" asp-page-handler="Delete" asp-route-id="@craft.Id"
-                                      onclick="return confirm('Are you sure you want to delete this?')">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-trash-alt text-white"></i></button>
-                                </form>
+                                    <form method="post" asp-page-handler="Delete" asp-route-id="@craft.Id"
+                                          onclick="return confirm('Are you sure you want to delete this?')">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-trash-alt text-white"></i></button>
+                                    </form>
+                                </div>
 
                             </td>
                         </tr>
 
-                        }
+                    }
 
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+
         </div>
     </div>
 </section>
+
+
+
 <!--================End Cart Area =================-->
+<style>
+    a.btn, button {
+        height: 30px;
+        margin-left: 2px;
+    }
+
+    .btn i {
+        line-height: 0 !important;
+    }
+</style>

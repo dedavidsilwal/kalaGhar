@@ -1,86 +1,223 @@
 ﻿@page "/crafts/detail/{id}"
 @model KalaGhar.Pages.Crafts.DetailModel
 @{
+    ViewBag.Title = "Craft detail";
+
 }
+<style>
+    p {
+        margin-top: 0px !important;
+    }
+
+    section {
+        margin: 5px 60px;
+        /* border: 2px solid ; */
+        min-height: 70px;
+        /* height: 250px; */
+    }
+
+    .avatar img {
+        height: 43px;
+        width: 43px;
+        border-radius: 30px;
+    }
+
+    .nav {
+        padding: 0px 20px;
+        width: 100%;
+    }
+
+    .comment-section .reply {
+        padding-left: 20vh;
+        width: 100%;
+    }
+
+    .comment-section textarea {
+        width: 235vh;
+    }
+    </style>
 
 <!--================Single Product Area =================-->
-<div class="product_image_area">
+<div class="product_image_area" style="margin-top:0px">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-12">
 
                 @if (Model.Craft.Images.Count != 0)
                 {
-                <div class="product_img_slide owl-carousel">
+                    <div class="product_img_slide owl-carousel">
 
-                    @foreach (var image in Model.Craft.Images)
-                    {
-                        <div class="single_product_img">
-                            <img src="~/Images/@image.Name" alt="@image.Name" class="img-fluid">
-                        </div>
-                    }                                   
+                        @foreach (var image in Model.Craft.Images)
+                        {
+                            <div class="single_product_img">
+                                <img src="~/Images/@image.Name" alt="@image.Name" style=" height: 70vh;" class="img-fluid">
+                            </div>
+                        }
 
-                </div>
+                    </div>
                 }
-
 
             </div>
             <div class="col-lg-8">
                 <div class="single_product_text text-center">
                     <h3>
-                        @Model.Craft.Name 
+                        @Model.Craft.Name
                     </h3>
                     <p>
                         @Model.Craft.Description.
-
                     </p>
-                    <div class="card_area">
-                        <div class="product_count_area">
-                            <p>Price @Model.Craft.Price</p>
-                        </div>
-                        <div class="product_count_area">
-                            <p>Quantity @Model.Craft.Quantity</p>
-                        </div>
-                        <div class="add_to_cart">
-                            <a asp-page-handler="AddToWishList" asp-route-id="@Model.Craft.Id" class="btn_3">add to wishlist</a>
-                        </div>
 
+                    <p>
                         <div>
-                            @foreach (var message in Model.Craft.Messages)
+
+                            Price NPR. @Model.Craft.Price
+
+                            @if (Model.Craft.Negotiable)
                             {
-                                <p>@message.Text</p>
-                                <p>@message?.SenderUserId</p>
-                                <p>@message.CreatedDateTime</p>
-
-                                <section>
-                                    @foreach(var reply in message.Replies)
-                                    {
-                                        <p>@reply.ReplyText</p>
-                                        <p>@reply.CreatedDateTime</p>                                       
-                                    }
-                                </section>
-
-                                <p>Add Replies</p>
-                                <form method="post" asp-page-handler="ReplyMessageSubmit">
-                                    <input type="hidden" name="MessageId" value="@message.Id" />
-                                    <textarea name="ReplyText"></textarea>
-                                    <input type="submit" value="Submit" />
-                                </form>
+                                <div style="font-weight:bold"> ( Negotiable )</div>
                             }
 
                         </div>
 
-                        <p>Add Question</p>
+                    </p>
+                    <p>Publisher: @await Model.GetUserNameAsync(Model.Craft?.UserId)</p>
 
-                        <form method="post" asp-page-handler="MessageSubmit">
-                            <input type="hidden" name="CraftId" value="@Model.CraftId"/>
-                            <textarea name="Text" ></textarea>
-                            <input type="submit" value="Submit"/>
-                        </form>
+
+                    <p>Quantity @Model.Craft.Quantity</p>
+
+                    <a asp-page-handler="AddToWishList" asp-route-id="@Model.Craft.Id" class="btn_3">add to wishlist</a>
+              
+                    <hr />
+
+
+                    <div style="padding-top:20px;">
+                        @foreach (var message in Model.Craft.Messages)
+                        {
+                            <div class="comment-section">
+                                <div class="header d-flex">
+                                    <div class="avatar">
+                                        <i class="fa fa-user user-icon"></i>
+                                    </div>
+                                    <div class="nav d-flex justify-content-between align-items-center">
+                                        <div class="info">
+                                            <span class="username h4"> @await Model.GetUserNameAsync(message?.SenderUserId) </span>
+                                            <span class="date-time h5">@message.CreatedDateTime </span>
+                                        </div>
+                                        <div class="expand-comment">
+                                            <button type="button" class="btn btn-primary"
+                                                    data-toggle="modal"
+                                                    data-target="#exampleModal"
+                                                    style="height:20px !important;"
+                                                    data-id="@message.Id"
+                                                    data-recipient="@await Model.GetUserNameAsync(message?.SenderUserId)"
+                                                    >
+                                                Reply
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="body" style="padding-left: 17vh;">
+                                    <p class="comment-content h5">@message.Text</p>
+                                    <hr />
+                                </div>
+                                @foreach (var reply in message.Replies)
+                                {
+                                    <div class="reply">
+                                        <div class="header d-flex">
+                                            <div class="avatar">
+                                                <i class="fa fa-user user-icon"></i>
+                                            </div>
+                                            <div class="nav d-flex justify-content-between align-items-center">
+                                                <div class="info">
+                                                    <span class="username h4">@await Model.GetUserNameAsync(Model.Craft?.UserId)  </span>
+                                                    <span class="date-time h5">@reply.CreatedDateTime </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="body" style="padding-left: 17vh;">
+                                            <p class="comment-content h5">@reply.ReplyText</p>
+                                        </div>
+
+                                    </div>
+
+                                }
+
+
+                            </div>
+
+                        }
+
+                        <div class="comment-form form-group">
+                            <form method="post" asp-page-handler="MessageSubmit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" name="CraftId" value="@Model.CraftId" />
+                                <textarea class="form-control" name="Text" rows="3" style="border:2px solid black" required placeholder="Ask a question?"></textarea>
+                                <input class="btn_2" style="float:right;margin-top:5px;height:60px;" type="submit" value="Submit" />
+                            </form>
+
+                        </div>
+
                     </div>
+
+                </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!--================End Single Product Area =================-->
+    <!--================End Single Product Area =================-->
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top:50px;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <form method="post" asp-page-handler="ReplyMessageSubmit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" name="MessageId" id="message-id" />
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Reply</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" readonly class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Message:</label>
+                            <textarea class="form-control" name="ReplyText" required id="message-text"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </div>
+                </form>
+            </div>
+                    
+
+        </div>
+    </div>
+
+
+    @section Scripts{
+        <script>
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('recipient');
+                var messageId = button.data('id');
+
+                var modal = $(this);      
+
+                modal.find('.modal-title').text('Reply ' + recipient);
+                modal.find('#recipient-name').val(recipient);
+                modal.find('#message-id').val(messageId);
+            })
+        </script>
+    }

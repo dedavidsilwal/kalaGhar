@@ -44,11 +44,11 @@ namespace KalaGhar.Pages.Crafts
         {
             Crafts = sortBy switch
             {
-                SortBy.Price => await _context.Crafts.OrderBy(s => s.Price).ToListAsync(),
-                SortBy.Relevance => throw new System.NotImplementedException(),
-                SortBy.ViewCount => throw new System.NotImplementedException(),
-                SortBy.RecentlyPublish => throw new System.NotImplementedException(),
-                _ => throw new System.NotImplementedException()
+                SortBy.PriceAsc => await _context.Crafts.OrderBy(s => s.Price).ToListAsync(),
+                SortBy.PriceDesc => await _context.Crafts.OrderByDescending(s => s.Price).ToListAsync(),
+                SortBy.PublishedDateAsc => await _context.Crafts.OrderBy(s => s.PublishDate).ToListAsync(),
+                SortBy.PublishedDateDesc => await _context.Crafts.OrderByDescending(s => s.PublishDate).ToListAsync(),
+                _ => await _context.Crafts.OrderByDescending(s => s.PublishDate).ToListAsync()
             };
 
             return Page();

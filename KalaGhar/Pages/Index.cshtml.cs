@@ -21,5 +21,10 @@ namespace KalaGhar.Pages
         {
 
         }
+
+        public void OnPostSubmitNewsLatter(string email)
+        {
+
+        }
     }
 }

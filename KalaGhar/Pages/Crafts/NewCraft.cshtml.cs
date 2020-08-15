@@ -2,7 +2,6 @@ using KalaGhar.Data;
 using KalaGhar.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +34,8 @@ namespace KalaGhar.Pages.Crafts
 
         public Craft Craft { get; set; }
 
+        [TempData]
+        public string StatusMessage { get; set; }
 
         public List<Category> Categories { get; set; }
 
@@ -52,6 +53,15 @@ namespace KalaGhar.Pages.Crafts
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (UploadedImage.Count == 0)
+            {
+                ModelState.AddModelError("UploadedImage", "Please upload image to create a craft");
+
+                Categories = await _context.Categories.ToListAsync();
+
+                return Page();
+            }
+
             if (!ModelState.IsValid)
             {
                 Categories = await _context.Categories.ToListAsync();
@@ -60,10 +70,12 @@ namespace KalaGhar.Pages.Crafts
             }
             await AddImagesToCraft();
 
-            Craft.UserId= _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            Craft.UserId = _contextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
             _context.Crafts.Add(Craft);
             await _context.SaveChangesAsync();
+
+            StatusMessage = "Craft created successfully.";
 
             return RedirectToPage("./MyCraft");
 
