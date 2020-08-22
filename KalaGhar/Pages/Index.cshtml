@@ -6,11 +6,11 @@
 
 
 <!-- slider Area Start -->
-<div class="container" style="background-image:url(./bg.png); height:440px;">
+<div class="container" style="background-image:url(./bg.png); height:430px;margin-top:20px">
     <div class="row d-flex align-items-center justify-content-center" style="padding: 3vh;">
         <div>
             <div class="hero__caption">
-                <div data-animation="fadeInRight" data-delay=".2s" 
+                <div data-animation="fadeInRight" data-delay=".2s"
                      style="margin-top:100px;margin-left:130px;">
                     <strong style="margin-left: 310px;
                             font-size: 40px;
@@ -33,44 +33,58 @@
     .image-row {
         padding: 8px;
         grid-gap: 20px;
+        overflow-y:scroll
     }
-    .image-row  img{
-        border:2px solid;
-        height:150px;
-        padding:2px 5px;
-    }
+
+        .image-row img {
+            border: 2px solid;
+            height: 293px;
+            padding: 2px 5px;
+        }
+
         .image-row figcaption {
-            padding :0px 2px;
+            padding: 0px 2px;
             position: absolute;
             top: -9px;
             left: 7px;
             background: #00a1ff;
-            color :white;
+            color: white;
         }
-    .image-item {
-       position: relative;
-    }
-   
 
+    .image-item {
+        position: relative;
+    }
 </style>
 
-<section class="d-flex flex-column" style="margin-top:25px;" >
+
+<hr/>
+
+<!-- Latest Products Start -->
+
+<div style="margin-top:25px;">
+    <vc:home-page-craft />
+</div>
+<hr />
+
+<section class="d-flex flex-column" style="
+    height: 399px;
+">
     <div class="d-flex flex-column align-items-center title">
-        <h2 >What  can I sell ?</h2>
+        <h2>What  can I sell ?</h2>
         <h4>Well... any arts/crafts on your mind can create.</h4>
     </div>
-    <div class="image-row d-flex gap" >
+    <div class="image-row d-flex gap">
         <div class="image-item">
-            <img src="~/paintings.png"  />
+            <img src="~/paintings.png" />
             <figcaption style=" ">Paintings</figcaption>
 
         </div>
         <div class="image-item">
-            <img src="~/diy planters.png"  />
+            <img src="~/diy planters.png" />
             <figcaption>DIY Crafts</figcaption>
         </div>
         <div class="image-item">
-            <img src="~/jwellery.png"/>
+            <img src="~/jwellery.png" />
             <figcaption>Jewellery</figcaption>
 
         </div>
@@ -80,17 +94,15 @@
 
         </div>
 
+        <div class="image-item">
+            <img src="~/digart.png" />
+            <figcaption>Digital Arts</figcaption>
+        </div>
+
     </div>
 
 </section>
-
-<!-- Latest Products Start -->
-
-<div style="margin-top:25px;">
-    <vc:home-page-craft />
-</div>
-
-
+<hr />
 
 <div class="latest-wrapper lf-padding container-fluid">
     <div class="latest-area latest-height d-flex align-items-center">
@@ -99,18 +111,21 @@
             <div class="row">
                 <div class="col-md-6">
                     <div>
-                        <img src="~/signup.png" height="300" width="370"  class="col-md-12" />
+                        <img src="~/signup.png" height="300" width="370" class="col-md-12" />
                     </div>
                 </div>
-                <div class="col-md-6 home-text" >
+                <div class="col-md-6 home-text">
                     <strong class="home-headline">Signup</strong> <br />
-                    <p class="home-text-info">You think that your kalaa will sell?<br />
-                    Then signup today and start earning.</p>
+                    <p class="home-text-info">
+                        You think that your kalaa will sell?<br />
+                        Then signup today and start earning.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<hr />
 
 <div class="latest-wrapper lf-padding container-fluid" style="margin-top:30px;">
     <div class="latest-area latest-height d-flex align-items-center">
@@ -120,18 +135,21 @@
                 <div class="col-md-6 home-text">
                     <div>
                         <strong class="home-headline">Upload your art/crafts</strong> <br />
-                        <p class="home-text-info">Upload your arts with pictures.7<br />
-                        Provide information about your arts/crafts.<br/>
-                         It's all upto you to sell your kalaa.</p>
+                        <p class="home-text-info">
+                            Upload your arts with pictures.7<br />
+                            Provide information about your arts/crafts.<br />
+                            It's all upto you to sell your kalaa.
+                        </p>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <img src="~/upload.png" height="300" width="370"  class="col-md-12" />
+                    <img src="~/upload.png" height="300" width="370" class="col-md-12" />
                 </div>
             </div>
         </div>
     </div>
 </div>
+<hr />
 
 <div class="latest-wrapper lf-padding container-fluid" style="margin-top:30px;">
     <div class="latest-area latest-height d-flex align-items-center">
@@ -140,29 +158,34 @@
             <div class="row">
                 <div class="col-md-6">
                     <div>
-                        <img src="~/buyer.png" height="300" width="370"  class="col-md-12"  />
+                        <img src="~/buyer.png" height="300" width="370" class="col-md-12" />
                     </div>
                 </div>
                 <div class="col-md-6 home-text">
                     <strong class="home-headline">Talk to your buyers and get paid</strong> <br />
-                    <p class="home-text-info">If somebody likes your art/crafts they will contact you.<br />
-                    Talk to your buyers directly and get paid.</p>
+                    <p class="home-text-info">
+                        If somebody likes your art/crafts they will contact you.<br />
+                        Talk to your buyers directly and get paid.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<hr />
 
 <style>
-    .home-text{
-        text-align:center;
-        align-items:center;
-        margin-top:70px;
+    .home-text {
+        text-align: center;
+        align-items: center;
+        margin-top: 70px;
     }
-    .home-headline{
-        font-size:40px;
+
+    .home-headline {
+        font-size: 40px;
     }
-    .home-text-info{
-        font-size:27px;
+
+    .home-text-info {
+        font-size: 27px;
     }
 </style>
